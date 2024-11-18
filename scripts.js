@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const currentLevelError = document.getElementById("current-level-error");
   const desiredLevelError = document.getElementById("desired-level-error");
+  const availableXpError = document.getElementById("available-xp-error");
   const lastLeveledDateError = document.getElementById("last-leveled-date-error");
 
   const today = new Date();
@@ -17,10 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentLevel = parseInt(currentLevelInput.value, 10);
     const desiredLevel = parseInt(desiredLevelInput.value, 10);
+    const availableXP = parseInt(availableXpInput.value, 10) || 0;
     const lastLeveledDate = lastLeveledDateInput.value;
 
     // Validate Current Level
-    if (isNaN(currentLevel)) {
+    if (isNaN(currentLevel) || currentLevel < 3 || currentLevel > 19) {
       currentLevelError.textContent = "Please enter a valid current level.";
       currentLevelError.classList.remove("hidden");
       isValid = false;
@@ -30,13 +32,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Validate Desired Level
-    if (isNaN(desiredLevel) || desiredLevel <= currentLevel) {
-      desiredLevelError.textContent = "Desired level must be higher than current level.";
+    if (isNaN(desiredLevel) || desiredLevel <= currentLevel || desiredLevel > 20) {
+      desiredLevelError.textContent = "Please enter a valid desired level.";
       desiredLevelError.classList.remove("hidden");
       isValid = false;
     } else {
       desiredLevelError.textContent = "";
       desiredLevelError.classList.add("hidden");
+    }
+
+    // Validate Available XP
+    if (availableXP < 0 || availableXP > 999) {
+      availableXpError.textContent = "Please enter a valid XP amount.";
+      availableXpError.classList.remove("hidden");
+      isValid = false;
+    } else {
+      availableXpError.textContent = "";
+      availableXpError.classList.add("hidden");
     }
 
     // Validate Last Leveled Date
@@ -54,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function clearErrorOnInput(event) {
     const inputId = event.target.id;
+    resultLabel.innerHTML = "The result will be displayed here.";
 
     if (inputId === "current-level") {
       currentLevelError.textContent = "";
@@ -61,6 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (inputId === "desired-level") {
       desiredLevelError.textContent = "";
       desiredLevelError.classList.add("hidden");
+    } else if (inputId === "available-xp") {
+      availableXpError.textContent = "";
+      availableXpError.classList.add("hidden");
     } else if (inputId === "last-leveled-date") {
       lastLeveledDateError.textContent = "";
       lastLeveledDateError.classList.add("hidden");
@@ -139,5 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   currentLevelInput.addEventListener("input", clearErrorOnInput);
   desiredLevelInput.addEventListener("input", clearErrorOnInput);
+  availableXpInput.addEventListener("input", clearErrorOnInput);
   lastLeveledDateInput.addEventListener("input", clearErrorOnInput);
 });
