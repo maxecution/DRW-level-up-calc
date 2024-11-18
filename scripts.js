@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const calculateBtn = document.getElementById("calculate-btn");
+  const clearBtn = document.getElementById("clear-btn");
   const currentLevelInput = document.getElementById("current-level");
   const desiredLevelInput = document.getElementById("desired-level");
   const availableXpInput = document.getElementById("available-xp");
@@ -13,6 +14,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const today = new Date();
 
+  currentLevelInput.focus();
+
+  // Function to clear all inputs and reset the state
+  function clearForm() {
+    // Reset Inputs
+    currentLevelInput.value = "";
+    desiredLevelInput.value = "";
+    availableXpInput.value = "";
+    lastLeveledDateInput.value = "";
+
+    // Reset error messages
+    currentLevelError.textContent = "";
+    currentLevelError.classList.add("hidden");
+
+    desiredLevelError.textContent = "";
+    desiredLevelError.classList.add("hidden");
+
+    availableXpError.textContent = "";
+    availableXpError.classList.add("hidden");
+
+    lastLeveledDateError.textContent = "";
+    lastLeveledDateError.classList.add("hidden");
+
+    // Reset the result label
+    resultLabel.innerHTML = "The result will be displayed here.";
+
+    currentLevelInput.focus();
+  }
+
+  // Form validation
   function validateForm() {
     let isValid = true;
 
@@ -53,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Validate Last Leveled Date
     if (lastLeveledDate && new Date(lastLeveledDate) > today) {
-      lastLeveledDateError.textContent = "Last leveled date cannot be in the future.";
+      lastLeveledDateError.textContent = "Date must be in the past.";
       lastLeveledDateError.classList.remove("hidden");
       isValid = false;
     } else {
@@ -129,7 +160,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return dates;
   };
 
-  // Main Event Listener
+  // Clear Button Event Listener
+  clearBtn.addEventListener("click", clearForm);
+
+  // Calculate Button Event Listener
   calculateBtn.addEventListener("click", () => {
     if (validateForm()) {
       const currentLevel = parseInt(currentLevelInput.value, 10);
