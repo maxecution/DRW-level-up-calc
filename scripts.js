@@ -174,11 +174,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const levelUpDates = calculateLevelUpDates(currentLevel, desiredLevel, baseXp, lastLeveledDate);
       const finalDate = levelUpDates[levelUpDates.length - 1].date;
 
-      let message = `<p class="mb-2">You can reach level <b>${desiredLevel}</b> by <b>${finalDate.toDateString()}</b>.</p>`;
+      let message = `<p class="mb-2">You can reach level <b>${desiredLevel}</b> by <b>${finalDate.toDateString()}</b></p>`;
       message += `<ul class="list-disc">`;
 
       levelUpDates.forEach(({ level, date }) => {
-        message += `<li class="mb-1 ml-6">Level <b>${level}</b> on <b>${date.toDateString()}</b>.</li>`;
+        message += `<li class="mb-1 ml-6">Level <b>${level}</b> on <b>${date.toDateString()}</b></li>`;
       });
 
       message += `</ul>`;
