@@ -1,6 +1,6 @@
 # Level Up Calculator
 
-The **Level Up Calculator** helps users calculate how long it will take to level up in a role-playing game (RPG) based on available XP and the current and desired levels. It also allows for the calculation of level-up dates while considering the cooldown period between level-ups.
+The **Level Up Calculator** was created for DRW. It helps users calculate how long it will take to level up their character based on available XP, the current and desired levels. It allows for the calculation of level-up dates while considering the last time the character was levelled up, and cooldown period between level-ups.
 
 ## Features
 
